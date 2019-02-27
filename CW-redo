@@ -1,0 +1,54 @@
+.data
+a: .word 10 #memory holding a
+a1: .word 12 #memory holdin b 
+divArray: .space  20 #storing the values of the divided numbers
+multArray: .space 20 #storing the values of the multiplied numbers
+#array:  #storing the result between numbers in the ethiopian multiplication process
+#array1: .word 10,5,2,1 #column 1 that is responsible for halving numbers
+#array2: .word 12,24,48,96 #column 2  that is responsible for doubling numbers
+
+result_s: .asciiz "The result is: " #output preamble
+error_z: .asciiz "The Error is: " #error specify
+
+main:
+.text
+lw $a0,a
+lw $a1,a1
+lw $t0, divArray
+lw $t2, multArray
+
+
+#lw $a2, array
+
+j mult
+ #used to jump over the following instruction
+
+
+#the multiplication function
+#$a0 contains pointer to array
+#$v0 is used to return a value, either a 0 or 1, depending on the output
+
+mult:
+sll $a1,$a1,1 #adding the value in $a1 by itself
+and $t0,$a1,$a1
+srl $a0,$a0, 1  #shifting on right with 1 to make the halving
+and $t1,$a0,$a0
+
+sll $a1,$a1,1  #adding the value in $a1 by itself
+and $t2,$a1,$a1
+srl $a0,$a0,1  #shifting on right with 1 to make the halving
+and $t3,$a0,$a0
+
+
+sll $a1,$a1,1 #adding the value in $a1 by itself
+and $t4,$a1,$a1
+srl $a0,$a0,1  #shifting on right with 1 to make the halving
+and $t5,$a0,$a0
+
+
+#load an address in a and b by using the address in $a0
+#multiply a and b
+#store result in array using the address of $a0
+#return either 0 or 1 in $v0 depending on successful must
+#main:
+
